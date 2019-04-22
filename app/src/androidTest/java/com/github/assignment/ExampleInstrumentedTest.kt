@@ -1,4 +1,4 @@
-package com.honestbee.assignment
+package com.github.assignment
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.honestbee.assignment", appContext.packageName)
+        assertEquals("com.github.assignment", appContext.packageName)
     }
 }

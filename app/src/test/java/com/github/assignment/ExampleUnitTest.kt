@@ -1,4 +1,4 @@
-package com.honestbee.assignment
+package com.github.assignment
 
 import org.junit.Test
 
