@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.assignment.network.responses.User
+import com.github.assignment.viewholder.TitleHolder
+import com.github.assignment.viewholder.UserHolder
 
 /**
  * @author chenchris on 2019/4/22.

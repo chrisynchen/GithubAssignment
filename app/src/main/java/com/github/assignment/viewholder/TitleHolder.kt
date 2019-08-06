@@ -1,8 +1,10 @@
-package com.github.assignment
+package com.github.assignment.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import com.github.assignment.MainAdapter
+import com.github.assignment.R
 import com.github.assignment.extensions.bindView
 
 /**

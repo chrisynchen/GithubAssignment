@@ -1,13 +1,16 @@
-package com.github.assignment
+package com.github.assignment.activity
 
 import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.github.assignment.R
+import com.github.assignment.UserDetailsView
 import com.github.assignment.network.ApiManager
 import com.github.assignment.network.requests.FetchUserDetailsRequest
 import com.github.assignment.network.responses.UserDetails
+import com.github.assignment.presenter.UserDetailsPresenter
 import kotlinx.android.synthetic.main.activity_user_details.*
 
 /**

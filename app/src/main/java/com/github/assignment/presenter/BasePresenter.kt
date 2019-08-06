@@ -1,4 +1,4 @@
-package com.github.assignment
+package com.github.assignment.presenter
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

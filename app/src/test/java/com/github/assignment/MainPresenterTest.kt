@@ -1,12 +1,15 @@
 package com.github.assignment
 
 import android.util.Log
+import com.github.assignment.contract.MainPresenter
+import com.github.assignment.contract.MainView
+import com.github.assignment.network.requests.FetchUsersRequest
+import com.github.assignment.network.responses.User
+import com.github.assignment.presenter.MainPresenterImpl
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.github.assignment.network.requests.FetchUsersRequest
-import com.github.assignment.network.responses.User
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -39,8 +42,8 @@ class MainPresenterTest {
         PowerMockito.mockStatic(Log::class.java)
 
         val immediate = object : Scheduler() {
-            override fun createWorker(): Scheduler.Worker {
-                return ExecutorScheduler.ExecutorWorker(Executor { it.run() })
+            override fun createWorker(): Worker {
+                return ExecutorScheduler.ExecutorWorker(Executor { it.run() }, false)
             }
         }
 
@@ -50,7 +53,7 @@ class MainPresenterTest {
         RxJavaPlugins.setInitSingleSchedulerHandler { immediate }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
 
-        presenter = MainPresenter(view, fetchUsersRequest)
+        presenter = MainPresenterImpl(view, fetchUsersRequest)
     }
 
     @Test
@@ -71,9 +74,13 @@ class MainPresenterTest {
     fun subscribe_success() {
         // Given
         val users = mutableListOf<User>().also {
-            it.add(User("github",0,"","","",
-                "","","","","","",
-                "", "","","","",false))
+            it.add(
+                User(
+                    "github", 0, "", "", "",
+                    "", "", "", "", "", "",
+                    "", "", "", "", "", false
+                )
+            )
         }
         val response = Response.success<List<User>>(users)
         whenever(fetchUsersRequest.getUsers())

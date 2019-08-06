@@ -1,6 +1,7 @@
-package com.github.assignment
+package com.github.assignment.presenter
 
 import android.util.Log
+import com.github.assignment.UserDetailsView
 import com.github.assignment.network.requests.FetchUserDetailsRequest
 import com.github.assignment.utility.RxUtil
 

@@ -1,4 +1,4 @@
-package com.github.assignment
+package com.github.assignment.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.github.assignment.MainAdapter
+import com.github.assignment.R
 import com.github.assignment.extensions.bindView
 
 /**

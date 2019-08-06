@@ -1,18 +1,21 @@
-package com.github.assignment
+package com.github.assignment.presenter
 
 import android.util.Log
+import com.github.assignment.MainAdapter
+import com.github.assignment.contract.MainPresenter
+import com.github.assignment.contract.MainView
 import com.github.assignment.network.requests.FetchUsersRequest
 import com.github.assignment.utility.RxUtil
 
 /**
  * @author chenchris on 2019/4/22.
  */
-class MainPresenter(
+class MainPresenterImpl(
     private val view: MainView,
     private val request: FetchUsersRequest
-) : BasePresenter() {
+) : MainPresenter(view, request) {
 
-    private val tag = MainPresenter::class.java.simpleName
+    private val tag = MainPresenterImpl::class.java.simpleName
 
     override fun subscribe() {
         val disposable = request

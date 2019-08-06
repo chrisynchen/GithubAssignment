@@ -1,15 +1,24 @@
-package com.github.assignment
+package com.github.assignment.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.github.assignment.MainAdapter
+import com.github.assignment.R
+import com.github.assignment.contract.MainPresenter
+import com.github.assignment.contract.MainView
 import com.github.assignment.network.ApiManager
 import com.github.assignment.network.requests.FetchUsersRequest
+import com.github.assignment.presenter.MainPresenterImpl
+import com.github.assignment.viewholder.UserHolder
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainView, UserHolder.Listener {
-    private val presenter = MainPresenter(this, ApiManager.getInstance().create(FetchUsersRequest::class.java))
+    private val presenter: MainPresenter = MainPresenterImpl(
+        this,
+        ApiManager.getInstance().create(FetchUsersRequest::class.java)
+    )
     private val adapter = MainAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {

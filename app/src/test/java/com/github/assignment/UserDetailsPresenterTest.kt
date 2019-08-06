@@ -7,6 +7,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.github.assignment.network.requests.FetchUserDetailsRequest
 import com.github.assignment.network.responses.UserDetails
+import com.github.assignment.presenter.UserDetailsPresenter
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -40,8 +41,8 @@ class UserDetailsPresenterTest {
         PowerMockito.mockStatic(Log::class.java)
 
         val immediate = object : Scheduler() {
-            override fun createWorker(): Scheduler.Worker {
-                return ExecutorScheduler.ExecutorWorker(Executor { it.run() })
+            override fun createWorker(): Worker {
+                return ExecutorScheduler.ExecutorWorker(Executor { it.run() }, false)
             }
         }
 
