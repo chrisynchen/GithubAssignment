@@ -1,4 +1,4 @@
-![master branch](https://img.shields.io/badge/master-:-blue.svg?style=social)[![Build Status](https://travis-ci.org/chrisynchen/GithubAssignment?branch=master)](https://travis-ci.org/chrisynchen/GithubAssignment)
+![master branch](https://img.shields.io/badge/master-:-blue.svg?style=social)[![Build Status](https://travis-ci.org/chrisynchen/GithubAssignment.svg?branch=master)](https://travis-ci.org/chrisynchen/GithubAssignment)
 
 # Github Assignment App
 
