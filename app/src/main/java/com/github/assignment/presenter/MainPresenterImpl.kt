@@ -6,11 +6,12 @@ import com.github.assignment.contract.MainPresenter
 import com.github.assignment.contract.MainView
 import com.github.assignment.network.requests.FetchUsersRequest
 import com.github.assignment.utility.RxUtil
+import javax.inject.Inject
 
 /**
  * @author chenchris on 2019/4/22.
  */
-class MainPresenterImpl(
+class MainPresenterImpl @Inject constructor(
     private val view: MainView,
     private val request: FetchUsersRequest
 ) : MainPresenter(view, request) {

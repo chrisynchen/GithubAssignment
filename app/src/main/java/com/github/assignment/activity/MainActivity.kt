@@ -8,22 +8,30 @@ import com.github.assignment.MainAdapter
 import com.github.assignment.R
 import com.github.assignment.contract.MainPresenter
 import com.github.assignment.contract.MainView
+import com.github.assignment.dagger.DaggerMainPresenterComponent
 import com.github.assignment.network.ApiManager
 import com.github.assignment.network.requests.FetchUsersRequest
-import com.github.assignment.presenter.MainPresenterImpl
 import com.github.assignment.viewholder.UserHolder
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView, UserHolder.Listener {
-    private val presenter: MainPresenter = MainPresenterImpl(
-        this,
-        ApiManager.getInstance().create(FetchUsersRequest::class.java)
-    )
+
     private val adapter = MainAdapter(this)
+
+    @Inject
+    lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val component = DaggerMainPresenterComponent.builder()
+            .view(this)
+            .userRequest(ApiManager.getInstance().create(FetchUsersRequest::class.java))
+            .build()
+        component.inject(this)
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = this@MainActivity.adapter
