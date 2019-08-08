@@ -2,4 +2,5 @@
     <string name="app_name">GitHub Users</string>
     <string name="staff">Staff</string>
     <string name="users">Users</string>
+    <string name="hamburger_emoji">🍔</string>
 </resources>
