@@ -35,7 +35,8 @@
                        android:scaleType="centerCrop"
                        app:layout_constraintTop_toBottomOf="@id/close"
                        app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintEnd_toEndOf="parent"/>
+                       app:layout_constraintEnd_toEndOf="parent"
+                       imageUrl="=@{userDetails.avatarUrl}"/>
 
             <TextView android:id="@+id/nameTextView"
                       android:layout_width="wrap_content"
@@ -108,7 +109,8 @@
                       app:layout_constraintBottom_toBottomOf="@id/userIcon"
                       android:background="@drawable/round_border_blue"
                       android:textAllCaps="true"
-                      android:text="@string/staff"/>
+                      android:text="@string/staff"
+                      android:visibility="@{userDetails.siteAdmin}"/>
 
             <ImageView android:id="@+id/locationIcon"
                        android:layout_width="wrap_content"

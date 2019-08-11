@@ -3,9 +3,7 @@ package com.github.assignment.activity
 import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.View
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import android.support.v4.content.res.ResourcesCompat
 import com.github.assignment.R
 import com.github.assignment.UserDetailsView
 import com.github.assignment.databinding.ActivityUserDetailsBinding
@@ -13,10 +11,11 @@ import com.github.assignment.network.ApiManager
 import com.github.assignment.network.requests.FetchUserDetailsRequest
 import com.github.assignment.network.responses.UserDetails
 import com.github.assignment.presenter.UserDetailsPresenter
+import com.github.assignment.utility.UiUtil
 import kotlinx.android.synthetic.main.activity_user_details.*
 
 /**
- * @author chenchris on 2019/4/23.
+ * @author chenchris on 2019/4/23. Binding adapter example.
  */
 class UserDetailsActivity : Activity(), UserDetailsView {
 
@@ -39,7 +38,6 @@ class UserDetailsActivity : Activity(), UserDetailsView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_user_details)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_details)
         initViews()
     }
@@ -70,15 +68,11 @@ class UserDetailsActivity : Activity(), UserDetailsView {
 
     override fun onFetchUserDetails(userDetails: UserDetails) {
         binding.userDetails = userDetails
-        Glide.with(this)
-            .load(userDetails.avatarUrl)
-            .apply(RequestOptions.circleCropTransform())
-            .into(avatar)
-        siteAdminTextView.visibility =
-            if (userDetails.siteAdmin) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+        UiUtil.loadImageInCircle(
+            binding.avatar,
+            userDetails.avatarUrl,
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
+        )
+        UiUtil.setVisibility(siteAdminTextView, userDetails.siteAdmin)
     }
 }
