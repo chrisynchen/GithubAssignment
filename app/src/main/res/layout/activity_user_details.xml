@@ -36,7 +36,7 @@
                        app:layout_constraintTop_toBottomOf="@id/close"
                        app:layout_constraintStart_toStartOf="parent"
                        app:layout_constraintEnd_toEndOf="parent"
-                       imageUrl="=@{userDetails.avatarUrl}"/>
+                       app:imageUrl="@{userDetails.avatarUrl}"/>
 
             <TextView android:id="@+id/nameTextView"
                       android:layout_width="wrap_content"

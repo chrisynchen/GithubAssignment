@@ -1,55 +1,35 @@
 package com.github.assignment.viewholder
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.github.assignment.BR
 import com.github.assignment.MainAdapter
-import com.github.assignment.R
-import com.github.assignment.extensions.bindView
+import com.github.assignment.databinding.ViewHolderUserBinding
+
 
 /**
  * @author chenchris on 2019/4/22.
  */
-class UserHolder(itemView: View, listener: Listener) : RecyclerView.ViewHolder(itemView) {
+class UserHolder(private val viewDataBinding: ViewHolderUserBinding, listener: Listener) :
+    RecyclerView.ViewHolder(viewDataBinding.root) {
 
     private var userItem: MainAdapter.Item.UserItem? = null
 
     init {
-        itemView.setOnClickListener {
+        viewDataBinding.root.setOnClickListener {
             userItem?.user?.login?.let {
                 listener.onItemClick(it)
             }
         }
     }
 
-    private val nameTextView: TextView by bindView(R.id.nameTextView)
-    private val avatarImageView: ImageView by bindView(R.id.avatar)
-    private val siteAdminTextView: TextView by bindView(R.id.siteAdminTextView)
-    private val separatorView: View by bindView(R.id.separator)
-
     fun bind(userItem: MainAdapter.Item.UserItem?) {
         this.userItem = userItem
-        userItem?.user?.let {
-            nameTextView.text = it.login
-            separatorView.visibility =
-                if (userItem.isLast) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-            siteAdminTextView.visibility =
-                if (it.siteAdmin) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-            Glide.with(itemView.context)
-                .load(it.avatarUrl)
-                .apply(RequestOptions.circleCropTransform())
-                .into(avatarImageView)
+        viewDataBinding.apply {
+            userItem?.user?.let {
+                setVariable(BR.userItem, userItem)
+                setVariable(BR.isLast, userItem.isLast)
+                executePendingBindings()
+            }
         }
     }
 

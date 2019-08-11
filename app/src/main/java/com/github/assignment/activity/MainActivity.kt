@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity(), MainView, UserHolder.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val component = DaggerMainPresenterComponent.builder()

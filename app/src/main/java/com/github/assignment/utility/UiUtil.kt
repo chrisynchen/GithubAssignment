@@ -12,8 +12,9 @@ import com.bumptech.glide.request.RequestOptions
  */
 
 object UiUtil {
-    @BindingAdapter("imageUrl", "placeholder")
-    fun loadImageInCircle(view: ImageView, imageUrl: String?, placeholder: Drawable?) {
+    @BindingAdapter(value = ["imageUrl", "placeholder"], requireAll = false)
+    @JvmStatic
+    fun loadImageInCircle(view: ImageView, imageUrl: String?, placeholder: Drawable? = null) {
         Glide.with(view.context)
             .load(imageUrl)
             .apply(RequestOptions.circleCropTransform())
@@ -21,8 +22,11 @@ object UiUtil {
             .into(view)
     }
 
-    @JvmStatic
+    /**
+     * Need further thinking this. Is this good? or we need get avoid to use this?
+     */
     @BindingAdapter("android:visibility")
+    @JvmStatic
     fun setVisibility(view: View, visible: Boolean) {
         view.visibility = if (visible) View.VISIBLE else View.GONE
     }

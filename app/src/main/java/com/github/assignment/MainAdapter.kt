@@ -1,12 +1,15 @@
 package com.github.assignment
 
+import android.databinding.DataBindingUtil
 import android.support.annotation.IntDef
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.github.assignment.databinding.ViewHolderUserBinding
 import com.github.assignment.network.responses.User
 import com.github.assignment.viewholder.TitleHolder
 import com.github.assignment.viewholder.UserHolder
+
 
 /**
  * @author chenchris on 2019/4/22.
@@ -47,14 +50,21 @@ class MainAdapter(private val listener: UserHolder.Listener) : RecyclerView.Adap
                 TitleHolder(itemView)
             }
             else -> {
-                val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_holder_user, parent, false)
-                UserHolder(itemView, listener)
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val userBinding =
+                    DataBindingUtil.inflate<ViewHolderUserBinding>(
+                        layoutInflater,
+                        R.layout.view_holder_user,
+                        parent,
+                        false
+                    )
+                UserHolder(userBinding, listener)
             }
         }
     }
 
     private fun getItem(position: Int): Item? {
-        return if (position in 0..(itemCount - 1)) {
+        return if (position in 0 until itemCount) {
             items[position]
         } else null
     }
