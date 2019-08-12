@@ -1,20 +1,18 @@
 package com.github.assignment.activity
 
 import android.app.Activity
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.View
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.github.assignment.R
 import com.github.assignment.UserDetailsView
+import com.github.assignment.databinding.ActivityUserDetailsBinding
 import com.github.assignment.network.ApiManager
 import com.github.assignment.network.requests.FetchUserDetailsRequest
 import com.github.assignment.network.responses.UserDetails
 import com.github.assignment.presenter.UserDetailsPresenter
-import kotlinx.android.synthetic.main.activity_user_details.*
 
 /**
- * @author chenchris on 2019/4/23.
+ * @author chenchris on 2019/4/23. Binding adapter example.
  */
 class UserDetailsActivity : Activity(), UserDetailsView {
 
@@ -33,9 +31,11 @@ class UserDetailsActivity : Activity(), UserDetailsView {
         )
     }
 
+    private lateinit var binding: ActivityUserDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_details)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_details)
         initViews()
     }
 
@@ -50,34 +50,20 @@ class UserDetailsActivity : Activity(), UserDetailsView {
     }
 
     private fun initViews() {
-        close.setOnClickListener {
+        binding.close.setOnClickListener {
             finish()
         }
     }
 
     override fun startLoading() {
-        swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.isRefreshing = true
     }
 
     override fun dismissLoading() {
-        swipeRefreshLayout.isRefreshing = false
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onFetchUserDetails(userDetails: UserDetails) {
-        Glide.with(this)
-            .load(userDetails.avatarUrl)
-            .apply(RequestOptions.circleCropTransform())
-            .into(avatar)
-        nameTextView.text = userDetails.name
-        bioTextView.text = userDetails.bio
-        loginTextView.text = userDetails.login
-        locationTextView.text = userDetails.location
-        blogTextView.text = userDetails.blog
-        siteAdminTextView.visibility =
-            if (userDetails.siteAdmin) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+        binding.userDetails = userDetails
     }
 }
