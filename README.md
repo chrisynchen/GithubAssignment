@@ -13,6 +13,7 @@ Use third-party lib as below:
 - Retrofit
 - Glide
 - Dagger2
+- Data Binding
 
 Test libs:
 
@@ -22,6 +23,7 @@ Test libs:
 CI/CD:
 
 - Travis
+- CircleCI
 
 ## Test
 //TODO
