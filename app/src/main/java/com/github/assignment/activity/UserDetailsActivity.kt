@@ -1,8 +1,8 @@
 package com.github.assignment.activity
 
 import android.app.Activity
-import android.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import com.github.assignment.R
 import com.github.assignment.UserDetailsView
 import com.github.assignment.databinding.ActivityUserDetailsBinding
