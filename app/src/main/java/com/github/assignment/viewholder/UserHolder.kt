@@ -1,6 +1,6 @@
 package com.github.assignment.viewholder
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.github.assignment.BR
 import com.github.assignment.MainAdapter
 import com.github.assignment.databinding.ViewHolderUserBinding

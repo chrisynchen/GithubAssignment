@@ -1,10 +1,11 @@
 package com.github.assignment
 
-import android.databinding.DataBindingUtil
-import android.support.annotation.IntDef
-import android.support.v7.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.IntDef
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.github.assignment.databinding.ViewHolderUserBinding
 import com.github.assignment.network.responses.User
 import com.github.assignment.viewholder.TitleHolder

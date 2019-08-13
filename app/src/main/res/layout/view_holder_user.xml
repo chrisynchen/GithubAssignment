@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                      android:layout_height="wrap_content"
                                                      android:padding="20dp">
 
@@ -59,7 +59,7 @@
                       android:textAllCaps="true"
                       android:text="@string/staff"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View android:id="@+id/separator" style="@style/Separator"
               android:visibility="@{isLast ? View.GONE: View.VISIBLE}"/>
