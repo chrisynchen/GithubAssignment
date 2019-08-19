@@ -7,7 +7,7 @@ import com.github.assignment.R
 import com.github.assignment.UserDetailsView
 import com.github.assignment.databinding.ActivityUserDetailsBinding
 import com.github.assignment.network.ApiManager
-import com.github.assignment.network.requests.FetchUserDetailsRequest
+import com.github.assignment.network.requests.GithubService
 import com.github.assignment.network.responses.UserDetails
 import com.github.assignment.presenter.UserDetailsPresenter
 
@@ -27,7 +27,7 @@ class UserDetailsActivity : Activity(), UserDetailsView {
     private val presenter: UserDetailsPresenter by lazy {
         UserDetailsPresenter(
             this,
-            ApiManager.getInstance().create(FetchUserDetailsRequest::class.java), login
+            ApiManager.getInstance().create(GithubService::class.java), login
         )
     }
 

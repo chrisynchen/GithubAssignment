@@ -5,7 +5,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.github.assignment.network.requests.FetchUserDetailsRequest
+import com.github.assignment.network.requests.GithubService
 import com.github.assignment.network.responses.UserDetails
 import com.github.assignment.presenter.UserDetailsPresenter
 import io.reactivex.Scheduler
@@ -33,7 +33,7 @@ class UserDetailsPresenterTest {
     private lateinit var presenter: UserDetailsPresenter
 
     private val view: UserDetailsView = mock()
-    private val fetchUserDetailsRequest: FetchUserDetailsRequest = mock()
+    private val githubService: GithubService = mock()
     private val login = "github"
 
     @Before
@@ -52,13 +52,13 @@ class UserDetailsPresenterTest {
         RxJavaPlugins.setInitSingleSchedulerHandler { immediate }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
 
-        presenter = UserDetailsPresenter(view, fetchUserDetailsRequest, login)
+        presenter = UserDetailsPresenter(view, githubService, login)
     }
 
     @Test
     fun subscribe_failed() {
         // Given
-        whenever(fetchUserDetailsRequest.getUserDetails(login))
+        whenever(githubService.getUserDetails(login))
             .thenReturn(Single.error(Throwable()))
 
         // When
@@ -80,7 +80,7 @@ class UserDetailsPresenterTest {
             ""
         )
         val response = Response.success(userDetails)
-        whenever(fetchUserDetailsRequest.getUserDetails(login))
+        whenever(githubService.getUserDetails(login))
             .thenReturn(Single.just(response))
 
         // When

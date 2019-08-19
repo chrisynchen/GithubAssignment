@@ -3,7 +3,7 @@ package com.github.assignment
 import android.util.Log
 import com.github.assignment.contract.MainPresenter
 import com.github.assignment.contract.MainView
-import com.github.assignment.network.requests.FetchUsersRequest
+import com.github.assignment.network.requests.GithubService
 import com.github.assignment.network.responses.User
 import com.github.assignment.presenter.MainPresenterImpl
 import com.nhaarman.mockito_kotlin.any
@@ -35,7 +35,7 @@ class MainPresenterTest {
     private lateinit var presenter: MainPresenter
 
     private val view: MainView = mock()
-    private val fetchUsersRequest: FetchUsersRequest = mock()
+    private val githubService: GithubService = mock()
 
     @Before
     fun setUp() {
@@ -53,13 +53,13 @@ class MainPresenterTest {
         RxJavaPlugins.setInitSingleSchedulerHandler { immediate }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
 
-        presenter = MainPresenterImpl(view, fetchUsersRequest)
+        presenter = MainPresenterImpl(view, githubService)
     }
 
     @Test
     fun subscribe_failed() {
         // Given
-        whenever(fetchUsersRequest.getUsers())
+        whenever(githubService.getUsers())
             .thenReturn(Single.error(Throwable()))
 
         // When
@@ -83,7 +83,7 @@ class MainPresenterTest {
             )
         }
         val response = Response.success<List<User>>(users)
-        whenever(fetchUsersRequest.getUsers())
+        whenever(githubService.getUsers())
             .thenReturn(Single.just(response))
         whenever(view.getUserTitle())
             .thenReturn("Users")

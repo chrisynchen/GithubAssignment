@@ -4,7 +4,7 @@ import android.util.Log
 import com.github.assignment.MainAdapter
 import com.github.assignment.contract.MainPresenter
 import com.github.assignment.contract.MainView
-import com.github.assignment.network.requests.FetchUsersRequest
+import com.github.assignment.network.requests.GithubService
 import com.github.assignment.utility.RxUtil
 import javax.inject.Inject
 
@@ -13,13 +13,13 @@ import javax.inject.Inject
  */
 class MainPresenterImpl @Inject constructor(
     private val view: MainView,
-    private val request: FetchUsersRequest
-) : MainPresenter(view, request) {
+    private val githubService: GithubService
+) : MainPresenter(view, githubService) {
 
     private val tag = MainPresenterImpl::class.java.simpleName
 
     override fun subscribe() {
-        val disposable = request
+        val disposable = githubService
             .getUsers()
             .compose(RxUtil.applyIoMainSchedulers())
             .doOnSubscribe {

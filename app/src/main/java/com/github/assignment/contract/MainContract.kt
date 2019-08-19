@@ -2,7 +2,7 @@ package com.github.assignment.contract
 
 import com.github.assignment.BaseView
 import com.github.assignment.MainAdapter
-import com.github.assignment.network.requests.FetchUsersRequest
+import com.github.assignment.network.requests.GithubService
 import com.github.assignment.presenter.BasePresenter
 
 /**
@@ -14,4 +14,4 @@ interface MainView : BaseView {
     fun getUserTitle(): String
 }
 
-abstract class MainPresenter(view: MainView, request: FetchUsersRequest) : BasePresenter()
+abstract class MainPresenter(view: MainView, githubService: GithubService) : BasePresenter()
