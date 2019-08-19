@@ -11,8 +11,6 @@ import com.github.assignment.contract.MainPresenter
 import com.github.assignment.contract.MainView
 import com.github.assignment.dagger.DaggerMainPresenterComponent
 import com.github.assignment.databinding.ActivityMainBinding
-import com.github.assignment.network.ApiManager
-import com.github.assignment.network.requests.FetchUsersRequest
 import com.github.assignment.viewholder.UserHolder
 import javax.inject.Inject
 
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity(), MainView, UserHolder.Listener {
 
         val component = DaggerMainPresenterComponent.builder()
             .view(this)
-            .userRequest(ApiManager.getInstance().create(FetchUsersRequest::class.java))
             .build()
         component.inject(this)
 

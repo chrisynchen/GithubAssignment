@@ -2,7 +2,7 @@ package com.github.assignment.presenter
 
 import android.util.Log
 import com.github.assignment.UserDetailsView
-import com.github.assignment.network.requests.FetchUserDetailsRequest
+import com.github.assignment.network.requests.GithubService
 import com.github.assignment.utility.RxUtil
 
 /**
@@ -10,7 +10,7 @@ import com.github.assignment.utility.RxUtil
  */
 class UserDetailsPresenter(
     private val view: UserDetailsView,
-    private val request: FetchUserDetailsRequest,
+    private val githubService: GithubService,
     private val login: String?
 ) : BasePresenter() {
 
@@ -19,7 +19,7 @@ class UserDetailsPresenter(
     override fun subscribe() {
         if (login.isNullOrEmpty()) return
 
-        val disposable = request
+        val disposable = githubService
             .getUserDetails(login)
             .compose(RxUtil.applyIoMainSchedulers())
             .doOnSubscribe {
