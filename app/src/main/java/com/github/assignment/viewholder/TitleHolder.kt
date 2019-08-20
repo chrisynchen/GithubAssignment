@@ -15,6 +15,6 @@ class TitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val titleTextView: TextView by bindView(R.id.title)
 
     fun bind(titleItem: MainAdapter.Item.TitleItem) {
-        titleTextView.text = titleItem.titleText
+        titleTextView.text = itemView.context.getString(R.string.users)
     }
 }
