@@ -25,24 +25,19 @@ class MainActivity : AppCompatActivity(), UserHolder.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val component = DaggerMainComponent.builder()
             .build()
         component.inject(this)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = this@MainActivity.adapter
         }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            //            presenter.subscribe()
-            viewModel.fetchUsers()
-        }
-
-        viewModel.progressVisibility.observe(this, Observer {
-            binding.swipeRefreshLayout.isRefreshing = it
-        })
 
         viewModel.items.observe(this, Observer {
             adapter.setItems(it)
@@ -51,7 +46,7 @@ class MainActivity : AppCompatActivity(), UserHolder.Listener {
 
     override fun onStart() {
         super.onStart()
-        viewModel.fetchUsers()
+        viewModel.onRefresh()
     }
 
     override fun onItemClick(login: String) {

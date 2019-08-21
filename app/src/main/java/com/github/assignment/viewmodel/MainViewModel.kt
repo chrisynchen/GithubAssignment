@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(private val userRepository: IUserReposit
     val progressVisibility: LiveData<Boolean>
         get() = _progressVisibility
 
-    fun fetchUsers() {
+    fun onRefresh() {
         val disposable = userRepository.loadUser()
             .compose(RxUtil.applyIoMainSchedulers())
             .doOnSubscribe {
