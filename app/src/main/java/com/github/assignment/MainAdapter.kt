@@ -85,7 +85,7 @@ class MainAdapter(private val listener: UserHolder.Listener) : RecyclerView.Adap
             annotation class UserListType
         }
 
-        data class TitleItem(val titleText: String) : Item(TYPE_TITLE)
+        data class TitleItem(val titleType: Int = TYPE_TITLE) : Item(titleType)
 
         data class UserItem(val user: User, val isLast: Boolean) : Item(TYPE_USER)
     }

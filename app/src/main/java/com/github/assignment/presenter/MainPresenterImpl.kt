@@ -30,7 +30,7 @@ class MainPresenterImpl @Inject constructor(
             }
             .subscribe({
                 val item = mutableListOf<MainAdapter.Item>()
-                item.add(MainAdapter.Item.TitleItem(view.getUserTitle()))
+                item.add(MainAdapter.Item.TitleItem())
                 it.body()?.let { users ->
                     for (i in 0 until users.size) {
                         item.add(MainAdapter.Item.UserItem(users[i], i == users.size - 1))
