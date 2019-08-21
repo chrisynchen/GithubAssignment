@@ -1,15 +1,13 @@
-package com.github.assignment
+package com.github.assignment.presenter
 
 import android.util.Log
-import com.github.assignment.contract.MainPresenter
-import com.github.assignment.contract.MainView
-import com.github.assignment.network.requests.GithubService
-import com.github.assignment.network.responses.User
-import com.github.assignment.presenter.MainPresenterImpl
+import com.github.assignment.UserDetailsView
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.github.assignment.network.requests.GithubService
+import com.github.assignment.network.responses.UserDetails
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -31,11 +29,12 @@ import java.util.concurrent.Executor
 @RunWith(PowerMockRunner::class)
 @PowerMockIgnore("javax.net.ssl.*")
 @PrepareForTest(Log::class)
-class MainPresenterTest {
-    private lateinit var presenter: MainPresenter
+class UserDetailsPresenterTest {
+    private lateinit var presenter: UserDetailsPresenter
 
-    private val view: MainView = mock()
+    private val view: UserDetailsView = mock()
     private val githubService: GithubService = mock()
+    private val login = "github"
 
     @Before
     fun setUp() {
@@ -53,13 +52,13 @@ class MainPresenterTest {
         RxJavaPlugins.setInitSingleSchedulerHandler { immediate }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
 
-        presenter = MainPresenterImpl(view, githubService)
+        presenter = UserDetailsPresenter(view, githubService, login)
     }
 
     @Test
     fun subscribe_failed() {
         // Given
-        whenever(githubService.getUsers())
+        whenever(githubService.getUserDetails(login))
             .thenReturn(Single.error(Throwable()))
 
         // When
@@ -73,20 +72,16 @@ class MainPresenterTest {
     @Test
     fun subscribe_success() {
         // Given
-        val users = mutableListOf<User>().also {
-            it.add(
-                User(
-                    "github", 0, "", "", "",
-                    "", "", "", "", "", "",
-                    "", "", "", "", "", false
-                )
-            )
-        }
-        val response = Response.success<List<User>>(users)
-        whenever(githubService.getUsers())
+        val userDetails = UserDetails(
+            "", 0, "", "", "", "", "",
+            "", "", "", "", "", "", "",
+            "", "", false, "", "", "", "", "",
+            "", "", 0, 0, 0, 0, "",
+            ""
+        )
+        val response = Response.success(userDetails)
+        whenever(githubService.getUserDetails(login))
             .thenReturn(Single.just(response))
-        whenever(view.getUserTitle())
-            .thenReturn("Users")
 
         // When
         presenter.subscribe()
@@ -94,7 +89,6 @@ class MainPresenterTest {
         // Then
         verify(view).startLoading()
         verify(view).dismissLoading()
-        verify(view).getUserTitle()
-        verify(view).onFetchUsers(any())
+        verify(view).onFetchUserDetails(any())
     }
 }
